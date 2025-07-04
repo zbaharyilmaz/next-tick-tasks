@@ -1,9 +1,12 @@
+import prisma from "../../../libs/prismadb";
+import { NextResponse } from "next/server";
+
 export const POST = async (request) => {
   try {
     const body = await request.json();
     const { title, description } = body;
 
-    const newPost = await Prisma.post.create({
+    const newPost = await prisma.post.create({
       data: {
         title,
         description,

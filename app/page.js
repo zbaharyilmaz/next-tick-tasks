@@ -1,4 +1,5 @@
-import Image from "next/image";
+import AddTask from "@/components/AddTask";
+
 
 export default function Home() {
   return (
@@ -6,6 +7,7 @@ export default function Home() {
   <h2>
     Task
   </h2>
+  <AddTask/>
 </main>
   );
 }
