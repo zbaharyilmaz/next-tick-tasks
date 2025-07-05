@@ -1,5 +1,5 @@
-import AddTask from "@/components/AddTask";
-import TaskList from "@/components/TaskList";
+import AddTask from "../components/AddTask";
+import TaskList from "../components/TaskList";
 
 async function getData() {
   const res = await fetch("http://localhost:3000/api/post", {
@@ -11,12 +11,12 @@ async function getData() {
   return res.json();
 }
 const Home = async () => {
-  const notes = await getData();
+  const tasks = await getData();
   return (
     <main>
       <AddTask />
       <section>
-        <TaskList notes={notes} />
+        <TaskList tasks={tasks} />
       </section>
     </main>
   );

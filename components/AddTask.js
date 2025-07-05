@@ -5,35 +5,54 @@ import axios from "axios";
 
 const AddTask = () => {
   const router = useRouter();
-  const [visibility, setVisibility] = useState(false);
-  const [inputs, setInputs] = useState({});
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios
-      .post("/api/post", inputs)
-      .then((response) => console.log(response))
-      .catch((error) => console.log(error))
-      .finally(() => {
-        setInputs({});
-        router.refresh();
-      });
-  };
-  const handleChange=(e)=>{
+  const [inputs, setInputs] = useState({ title: "", description: "" });
 
-    const name = e.target.name;
-    const value = e.target.value;
-    setInputs((prevState) => ({ ...prevState, [name]: value }));
-  }
-  return(
-    <section className="mt-5 p-3 bg-white rounded-lg shadow-md">
-        <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
-            <h1 className="text-2xl pb-2 text-center">Add Your Task</h1>
-            <input type="text" name="title" value={inputs.title || ""} onChange={handleChange} placeholder="Task Title" className="input input-bordered input-sm w-full max-w-md m-auto" />
-            <input type="text" name="description" value={inputs.description || ""} onChange={handleChange} placeholder="Task Description" className="input input-bordered input-sm w-full max-w-md m-auto" />
-            <button type="submit" className="btn btn-warning max-w-md m-auto">Add</button>
-        </form>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("/api/post", inputs);
+      setInputs({ title: "", description: "" });
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInputs((prev) => ({ ...prev, [name]: value }));
+  };
+
+  return (
+    <section className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md mt-8">
+      <h1 className="text-3xl font-bold text-center mb-6">Add Your Task</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <input
+          type="text"
+          name="title"
+          value={inputs.title}
+          onChange={handleChange}
+          placeholder="Task Title"
+          required
+          className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <textarea
+          name="description"
+          value={inputs.description}
+          onChange={handleChange}
+          placeholder="Task Description"
+          rows={4}
+          className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+        />
+        <button
+          type="submit"
+          className="bg-yellow-500 text-white py-3 rounded font-semibold hover:bg-yellow-600 transition"
+        >
+          Add Task
+        </button>
+      </form>
     </section>
-  )
+  );
 };
 
 export default AddTask;

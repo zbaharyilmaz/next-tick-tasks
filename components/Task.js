@@ -2,110 +2,97 @@
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+
 const Task = ({ task }) => {
   const router = useRouter();
   const [visibility, setVisibility] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState(task);
-  const editForm = () => {
-    setVisibility((visibility) => !visibility);
-  };
-  const handleEditSubmit = (e) => {
+
+  const toggleEdit = () => setVisibility(!visibility);
+
+  const handleEditSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .patch(`/api/post/${task.id}`, taskToEdit)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        router.refresh();
-      });
+    try {
+      await axios.patch(`/api/post/${task.id}`, taskToEdit);
+      router.refresh();
+      setVisibility(false);
+    } catch (error) {
+      console.error(error);
+    }
   };
+
   const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setTaskToEdit((prevState) => ({ ...prevState, [name]: value }));
+    const { name, value } = e.target;
+    setTaskToEdit((prev) => ({ ...prev, [name]: value }));
   };
-  const handleDelete = (e) => {
-    axios
-      .delete(`/api/post/${task.id}`)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        router.refresh();
-      });
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`/api/post/${task.id}`);
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
-    <div>
-      <li className="card text-primary-content bg-base-150 w-75">
-        <div className="card-body">
-          <h2 className="card-title">{task.title}</h2>
-          <p className="card-text">{task.description}</p>
-          <div className="pt-6">
+    <li className="bg-white rounded-lg shadow-md w-72 p-6 flex flex-col justify-between hover:shadow-xl transition-shadow">
+      <div>
+        <h2 className="text-xl font-semibold mb-2 truncate">{task.title}</h2>
+        <p className="text-gray-600 mb-4 min-h-[3rem]">{task.description || "No description"}</p>
+      </div>
+
+      <div className="flex justify-between">
+        <button
+          onClick={toggleEdit}
+          className="px-4 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+        >
+          {visibility ? "Close" : "Edit"}
+        </button>
+        <button
+          onClick={handleDelete}
+          className="px-4 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition"
+        >
+          Delete
+        </button>
+      </div>
+
+      {visibility && (
+        <form onSubmit={handleEditSubmit} className="mt-4 space-y-3">
+          <input
+            type="text"
+            name="title"
+            value={taskToEdit.title || ""}
+            onChange={handleChange}
+            placeholder="Title"
+            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <textarea
+            name="description"
+            value={taskToEdit.description || ""}
+            onChange={handleChange}
+            placeholder="Description"
+            rows={3}
+            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+          />
+          <div className="flex gap-3">
             <button
-              className="btn btn-primary btn-sm mr-3 ml-3 rounded-md text-center"
-              onClick={(e) => editForm()}
+              type="submit"
+              className="flex-1 bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
             >
-              Edit
+              Update
             </button>
             <button
-              className="btn btn-danger btn-sm mr-3 ml-3 rounded-md text-center"
-              onClick={(e) => handleDelete()}
+              type="button"
+              onClick={toggleEdit}
+              className="flex-1 bg-gray-400 text-white py-2 rounded hover:bg-gray-500 transition"
             >
-              Delete
+              Cancel
             </button>
-            {visibility && (
-              <div>
-                <h2 className="text-center">Update Note</h2>
-                <form
-                  onSubmit={handleEditSubmit}
-                  className="bg-warning mt-1 p-4 rounded-lg flex-col"
-                >
-                  <div>
-                    <input
-                      value={noteToEdit.title || ""}
-                      onChange={handleChange}
-                      className="p-4 w-full outline-none"
-                      type="text"
-                      id="title"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      value={noteToEdit.description || ""}
-                      onChange={handleChange}
-                      name="description"
-                      className="p-4 w-full mt-3 outline-none"
-                      type="text"
-                      id="description"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="btn btn-sm mr-3 bg-lime-700 mt-2 p-2 rounded-md"
-                  >
-                    Update
-                  </button>
-                  <button
-                    onClick={() => setVisibility((visibility) => !visibility)}
-                    className="btn btn-sm mr-3 bg-rose-600 mt-2 p-2 rounded-md"
-                  >
-                    Cancel
-                  </button>
-                </form>
-              </div>
-            )}
           </div>
-        </div>
-      </li>
-    </div>
+        </form>
+      )}
+    </li>
   );
 };
 
