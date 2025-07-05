@@ -6,14 +6,14 @@ export const POST = async (request) => {
     const body = await request.json();
     const { title, description } = body;
 
-    const newPost = await prisma.post.create({
+    const newTask = await prisma.task.create({
       data: {
         title,
         description,
       },
     });
 
-    return NextResponse.json(newPost);
+    return NextResponse.json(newTask);
   } catch (error) {
     console.error("POST ERROR:", error);
     return NextResponse.json({ message: "POST Error", error }, { status: 500 });
@@ -22,8 +22,8 @@ export const POST = async (request) => {
 
 export const GET = async (request) => {
   try {
-    const posts = await prisma.post.findMany();
-    return NextResponse.json(posts);
+    const tasks = await prisma.task.findMany();
+    return NextResponse.json(tasks);
   } catch (error) {
     console.error("GET ERROR:", error);
     return NextResponse.json({ message: "GET Error", error }, { status: 500 });

@@ -2,7 +2,7 @@ import AddTask from "../components/AddTask";
 import TaskList from "../components/TaskList";
 
 async function getData() {
-  const res = await fetch("http://localhost:3000/api/post", {
+  const res = await fetch("http://localhost:3000/api/task", {
     cache: "no-store",
   });
   if (!res.ok) {

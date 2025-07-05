@@ -1,21 +1,16 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import axios from "axios";
+import useTaskStore from "../store/taskStore";
 
 const AddTask = () => {
-  const router = useRouter();
   const [inputs, setInputs] = useState({ title: "", description: "" });
+  const addTask = useTaskStore((state) => state.addTask);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post("/api/post", inputs);
-      setInputs({ title: "", description: "" });
-      router.refresh();
-    } catch (error) {
-      console.error(error);
-    }
+    await addTask(inputs);
+    setInputs({title:"", description: ""});
+    alert("Task added successfully!");
   };
 
   const handleChange = (e) => {

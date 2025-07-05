@@ -1,38 +1,31 @@
 "use client";
 import { useState } from "react";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+import useTaskStore from "../store/taskStore";
+
 
 const Task = ({ task }) => {
-  const router = useRouter();
   const [visibility, setVisibility] = useState(false);
   const [taskToEdit, setTaskToEdit] = useState(task);
+  const updateTask= useTaskStore((state)=> state.updateTask);
+  const deleteTask= useTaskStore((state)=>state.deleteTask);
 
   const toggleEdit = () => setVisibility(!visibility);
 
   const handleEditSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios.patch(`/api/post/${task.id}`, taskToEdit);
-      router.refresh();
-      setVisibility(false);
-    } catch (error) {
-      console.error(error);
-    }
+    await updateTask(task.id, taskToEdit)
+    setVisibility(false);
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTaskToEdit((prev) => ({ ...prev, [name]: value }));
+
   };
 
   const handleDelete = async () => {
-    try {
-      await axios.delete(`/api/post/${task.id}`);
-      router.refresh();
-    } catch (error) {
-      console.error(error);
-    }
+    await deleteTask(task.id)
+    alert("Task deleted successfully!");
   };
 
   return (
