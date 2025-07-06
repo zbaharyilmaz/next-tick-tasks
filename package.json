@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "postinstall": "prisma generate",
+    "build": "pnpm install --no-frozen-lockfile && next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -23,6 +24,7 @@
     "daisyui": "^5.0.43",
     "eslint": "^9",
     "eslint-config-next": "15.3.5",
+    "prisma": "6.11.1",
     "tailwindcss": "^4"
   }
 }

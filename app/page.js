@@ -2,7 +2,7 @@ import AddTask from "../components/AddTask";
 import TaskList from "../components/TaskList";
 
 async function getData() {
-  const res = await fetch("http://localhost:3000/api/task", {
+  const res = await fetch("https://next-tick-tasks.vercel.app/api/task", {
     cache: "no-store",
   });
   if (!res.ok) {
@@ -11,12 +11,12 @@ async function getData() {
   return res.json();
 }
 const Home = async () => {
-  const tasks = await getData();
+  const task = await getData();
   return (
     <main>
       <AddTask />
       <section>
-        <TaskList tasks={tasks} />
+        <TaskList task={task} />
       </section>
     </main>
   );

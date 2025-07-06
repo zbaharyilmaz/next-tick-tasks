@@ -45,6 +45,9 @@ importers:
       eslint-config-next:
         specifier: 15.3.5
         version: 15.3.5(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3)
+      prisma:
+        specifier: 6.11.1
+        version: 6.11.1(typescript@5.8.3)
       tailwindcss:
         specifier: ^4
         version: 4.1.11
@@ -2200,13 +2203,10 @@ snapshots:
   '@prisma/config@6.11.1':
     dependencies:
       jiti: 2.4.2
-    optional: true
 
-  '@prisma/debug@6.11.1':
-    optional: true
+  '@prisma/debug@6.11.1': {}
 
-  '@prisma/engines-version@6.11.1-1.f40f79ec31188888a2e33acda0ecc8fd10a853a9':
-    optional: true
+  '@prisma/engines-version@6.11.1-1.f40f79ec31188888a2e33acda0ecc8fd10a853a9': {}
 
   '@prisma/engines@6.11.1':
     dependencies:
@@ -2214,19 +2214,16 @@ snapshots:
       '@prisma/engines-version': 6.11.1-1.f40f79ec31188888a2e33acda0ecc8fd10a853a9
       '@prisma/fetch-engine': 6.11.1
       '@prisma/get-platform': 6.11.1
-    optional: true
 
   '@prisma/fetch-engine@6.11.1':
     dependencies:
       '@prisma/debug': 6.11.1
       '@prisma/engines-version': 6.11.1-1.f40f79ec31188888a2e33acda0ecc8fd10a853a9
       '@prisma/get-platform': 6.11.1
-    optional: true
 
   '@prisma/get-platform@6.11.1':
     dependencies:
       '@prisma/debug': 6.11.1
-    optional: true
 
   '@rtsao/scc@1.1.0': {}
 
@@ -3607,7 +3604,6 @@ snapshots:
       '@prisma/engines': 6.11.1
     optionalDependencies:
       typescript: 5.8.3
-    optional: true
 
   prop-types@15.8.1:
     dependencies:
