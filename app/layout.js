@@ -1,14 +1,10 @@
-import { Inter, Fira_Code } from "next/font/google";
 import "./globals.css";
+import { Pompiere } from "next/font/google";
 
-const inter = Inter({
-  variable: "--font-inter",
+const pompiere = Pompiere({
+  variable: "--font-pompiere",
   subsets: ["latin"],
-});
-
-const firaCode = Fira_Code({
-  variable: "--font-fira-code",
-  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata = {
@@ -19,7 +15,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${firaCode.variable} antialiased`}>
+      <body className={`${pompiere.variable} font-pompiere antialiased`}>
         {children}
       </body>
     </html>
