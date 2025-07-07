@@ -29,7 +29,7 @@ const AddTask = () => {
         />
         <button
           type="submit"
-          className="bg-amber-400 py-2 w-30 mx-auto my-1 rounded font-semibold hover:bg-amber-500 hover:scale-[1.03] transition duration-200 cursor-pointer"
+          className="bg-sky-400 py-2 w-30 mx-auto my-1 rounded font-semibold hover:bg-sky-500 hover:scale-[1.03] transition duration-200 cursor-pointer"
         >
           ADD TASK
         </button>

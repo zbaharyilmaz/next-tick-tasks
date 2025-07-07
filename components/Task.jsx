@@ -48,9 +48,9 @@ const Task = ({ task }) => {
   };
   const handleToggle = () => {
     toggleTaskCompletion(task.id);
-    toast.success(task.completed ? "Task completed!" : "Task uncompleted!", {
-      className: "text-sm",
-    });
+    !task.completed
+      ? toast.success("Task completed!", { className: "text-sm" })
+      : toast.warning("Task uncompleted!", { className: "text-sm" });
   };
 
   return (
@@ -75,7 +75,7 @@ const Task = ({ task }) => {
       <div className="flex justify-center gap-3">
         <button
           onClick={openModal}
-          className="flex-1 px-4 py-1 bg-sky-600 w-20 text-white letter-spacing-1 text-xl rounded hover:bg-sky-700 hover:scale-[1.03] transition duration-200 cursor-pointer"
+          className="flex-1 px-4 py-1 bg-amber-400 w-20 letter-spacing-1 text-xl rounded hover:bg-amber-500 hover:scale-[1.03] transition duration-200 cursor-pointer"
         >
           EDIT
         </button>
@@ -108,7 +108,7 @@ const Task = ({ task }) => {
             <div className="flex gap-3">
               <button
                 type="submit"
-                className="flex-1 px-4 py-1 bg-sky-600 text-white rounded letter-spacing-1 text-xl  hover:bg-sky-700 hover:scale-[1.03] transition duration-200 cursor-pointer"
+                className="flex-1 px-4 py-1 bg-amber-400 rounded letter-spacing-1 text-xl  hover:bg-amber-500 hover:scale-[1.03] transition duration-200 cursor-pointer"
               >
                 UPDATE
               </button>

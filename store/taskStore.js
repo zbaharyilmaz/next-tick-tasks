@@ -3,12 +3,15 @@ import { create } from "zustand";
 
 const useTaskStore = create((set) => ({
   tasks: [],
+  loading: false,
   fetchTasks: async () => {
+    set({ loading: true });
     try {
       const res = await axios.get("/api/task");
-      set({ tasks: res.data });
+      set({ tasks: res.data, loading: false });
     } catch (error) {
       console.error("Error fetching tasks:", error);
+      set({ loading: false });
     }
   },
   addTask: async (taskData) => {
