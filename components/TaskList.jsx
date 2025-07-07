@@ -10,11 +10,11 @@ const TaskList = () => {
   }, []);
 
   return (
-    <ul className="flex flex-wrap justify-center gap-6 mt-8 px-4">
+    <ul className="flex flex-wrap justify-center gap-7 mt-9 px-4 mb-5">
       {tasks?.length > 0 ? (
         tasks.map((task) => <Task key={task.id} task={task} />)
       ) : (
-        <p className="text-center text-gray-500">No tasks found.</p>
+        <p className="text-2xl text-center mt-6">No tasks found.</p>
       )}
     </ul>
   );

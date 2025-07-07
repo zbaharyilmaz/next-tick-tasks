@@ -9,6 +9,9 @@ const Task = ({ task }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const updateTask = useTaskStore((state) => state.updateTask);
   const deleteTask = useTaskStore((state) => state.deleteTask);
+  const toggleTaskCompletion = useTaskStore(
+    (state) => state.toggleTaskCompletion
+  );
 
   const {
     register,
@@ -43,28 +46,44 @@ const Task = ({ task }) => {
     await deleteTask(task.id);
     toast.success("Task deleted successfully!", { className: "text-sm" });
   };
+  const handleToggle = () => {
+    toggleTaskCompletion(task.id);
+    toast.success(task.completed ? "Task completed!" : "Task uncompleted!", {
+      className: "text-sm",
+    });
+  };
 
   return (
-    <li className="bg-white rounded-lg shadow-md w-72 p-6 flex flex-col justify-between hover:shadow-xl transition-shadow">
-      <div>
+    <li
+      className={`bg-white rounded-lg shadow-md max-w-60 p-6 flex flex-col justify-between shadow-black mx-2 transition duration-300 ${
+        task.completed ? "opacity-50 line-through" : ""
+      }`}
+    >
+      <div className="flex justify-start gap-3 mb-3">
+        <input
+          type="checkbox"
+          checked={task.completed}
+          onChange={handleToggle}
+          className="w-5 h-5 border-gray-300 rounded cursor-pointer"
+        />
         <h2 className="text-xl font-semibold mb-2 truncate">{task.title}</h2>
-        <p className="text-gray-600 mb-4 min-h-[3rem]">
-          {task.description || "No description"}
-        </p>
       </div>
+      <p className="text-gray-600 mb-3 min-h-[3rem]">
+        {task.description || "No description"}
+      </p>
 
-      <div className="flex justify-between">
+      <div className="flex justify-center gap-3">
         <button
           onClick={openModal}
-          className="px-4 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+          className="flex-1 px-4 py-1 bg-sky-600 w-20 text-white letter-spacing-1 text-xl rounded hover:bg-sky-700 hover:scale-[1.03] transition duration-200 cursor-pointer"
         >
-          Edit
+          EDIT
         </button>
         <button
           onClick={handleDelete}
-          className="px-4 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition"
+          className="flex-1 px-4 py-1 bg-pink-500 text-white letter-spacing-1 text-xl  rounded hover:bg-pink-600 hover:scale-[1.03] transition duration-200 cursor-pointer"
         >
-          Delete
+          DELETE
         </button>
       </div>
 
@@ -75,7 +94,7 @@ const Task = ({ task }) => {
               type="text"
               {...register("title", { required: "Title is required" })}
               placeholder="Title"
-              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
             {errors.title && (
               <p className="text-red-500 text-sm">{errors.title.message}</p>
@@ -84,21 +103,21 @@ const Task = ({ task }) => {
               placeholder="Description"
               rows={3}
               {...register("description")}
-              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-teal-500 resize-none"
             />
             <div className="flex gap-3">
               <button
                 type="submit"
-                className="flex-1 bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+                className="flex-1 px-4 py-1 bg-sky-600 text-white rounded letter-spacing-1 text-xl  hover:bg-sky-700 hover:scale-[1.03] transition duration-200 cursor-pointer"
               >
-                Update
+                UPDATE
               </button>
               <button
                 type="button"
                 onClick={closeModal}
-                className="flex-1 bg-gray-400 text-white py-2 rounded hover:bg-gray-500 transition"
+                className="flex-1 px-4 py-1 bg-pink-500 text-white rounded letter-spacing-1 text-xl  hover:bg-pink-600 hover:scale-[1.03] transition duration-200 cursor-pointer"
               >
-                Cancel
+                CANCEL
               </button>
             </div>
           </form>

@@ -20,29 +20,24 @@
 # production
 /build
 
+# prisma
+/generated/          # Prisma client output (should be regenerated in build)
+/prisma/dev.db       # (eğer lokal SQLite kullanıyorsan, bu da eklenebilir)
+
 # misc
 .DS_Store
 *.pem
 
-# debug
+# debug logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files
 .env*
-
-# vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-/app/generated/prisma
-
-.next
-node_modules
-.env
-

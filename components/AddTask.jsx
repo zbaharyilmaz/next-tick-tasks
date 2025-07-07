@@ -13,7 +13,7 @@ const AddTask = () => {
   };
 
   return (
-    <section className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md mt-8">
+    <section className="max-w-85 mx-auto bg-white p-6 rounded-2xl shadow-xl shadow-black mt-8 hover:shadow-2xl transition-shadow duration-300">
       <h1 className="text-4xl font-bold text-center mb-6">T✔︎CK YOUR TASKS</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <input
@@ -29,7 +29,7 @@ const AddTask = () => {
         />
         <button
           type="submit"
-          className="bg-amber-400 py-2 text-lg w-30 mx-auto my-1 rounded font-semibold hover:bg-amber-500 transition"
+          className="bg-amber-400 py-2 w-30 mx-auto my-1 rounded font-semibold hover:bg-amber-500 hover:scale-[1.03] transition duration-200 cursor-pointer"
         >
           ADD TASK
         </button>
