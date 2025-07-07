@@ -1,18 +1,6 @@
 @import "tailwindcss";
 
 @layer base {
-  /* :root {
-    --taskcolor-green1: #0a7355;
-    --taskcolor-green2: #0b5943;
-    --taskcolor-green3: #03a696;
-    --taskcolor-darker: #0b261e;
-    --taskcolor-blue: #03738c;
-    --taskcolor-button1: #f2b749;
-    --taskcolor-button2: #f22e62;
-    --taskcolor-button3: #0fbf1b;
-    --taskcolor-pink: #f2809f;
-  } */
-
   body {
     font-family: "Pompiere", sans-serif;
     font-size: 20px;
