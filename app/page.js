@@ -1,8 +1,9 @@
 import AddTask from "../components/AddTask";
 import TaskList from "../components/TaskList";
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 async function getData() {
-  const res = await fetch("https://next-tick-tasks.vercel.app/api/task", {
+  const res = await fetch(`${baseUrl}/api/task`, {
     cache: "no-store",
   });
   if (!res.ok) {

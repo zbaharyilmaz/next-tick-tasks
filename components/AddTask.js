@@ -1,49 +1,37 @@
 "use client";
-import { useState } from "react";
+import { toast } from "react-toastify";
 import useTaskStore from "../store/taskStore";
+import { useForm } from "react-hook-form";
 
 const AddTask = () => {
-  const [inputs, setInputs] = useState({ title: "", description: "" });
+  const { register, handleSubmit, reset } = useForm();
   const addTask = useTaskStore((state) => state.addTask);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await addTask(inputs);
-    setInputs({title:"", description: ""});
-    alert("Task added successfully!");
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInputs((prev) => ({ ...prev, [name]: value }));
+  const onSubmit = async (data) => {
+    await addTask(data);
+    toast.success("Task added successfully!", { className: "text-sm" });
+    reset();
   };
 
   return (
     <section className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md mt-8">
-      <h1 className="text-3xl font-bold text-center mb-6">Add Your Task</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <h1 className="text-4xl font-bold text-center mb-6">T✔︎CK YOUR TASKS</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <input
-          type="text"
-          name="title"
-          value={inputs.title}
-          onChange={handleChange}
+          {...register("title", { required: true })}
           placeholder="Task Title"
-          required
-          className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-700"
         />
         <textarea
-          name="description"
-          value={inputs.description}
-          onChange={handleChange}
+          {...register("description", { required: true })}
           placeholder="Task Description"
           rows={4}
-          className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+          className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-700 resize-none"
         />
         <button
           type="submit"
-          className="bg-yellow-500 text-white py-3 rounded font-semibold hover:bg-yellow-600 transition"
+          className="bg-amber-400 py-2 text-lg w-30 mx-auto my-1 rounded font-semibold hover:bg-amber-500 transition"
         >
-          Add Task
+          ADD TASK
         </button>
       </form>
     </section>
