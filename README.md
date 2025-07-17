@@ -18,7 +18,7 @@ Designed to help you track your daily tasks with clarity and simplicity.
 - Real-time toast notifications (React Toastify)
 - Smooth state management (Zustand)
 - Form validation with React Hook Form
-- Clean UI with Tailwind CSS and DaisyUI
+- Clean UI with Tailwind CSS
 - MongoDB integration via Prisma ORM
 
 ## Tech Stack
