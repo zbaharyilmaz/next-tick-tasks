@@ -27,7 +27,6 @@ Designed to help you track your daily tasks with clarity and simplicity.
 - **React**: `^19.0.0`
 - **React DOM**: `^19.0.0`
 - **Tailwind CSS**: `^4`
-- **DaisyUI**: `^5.0.43`
 - **Zustand**: `^5.0.6`
 - **Prisma**: `6.11.1`
 - **@prisma/client**: `6.11.1`
